@@ -16,13 +16,23 @@ public class CharMapper {
    private Font usedFont;
    private int resolution;
 
+   /**Creates CharMapper object with font and resolution input.
+    * 
+    * @param fontToUse pick a font, 10pt reccomended
+    * @param mappingResolution CURRENTLY UNUSED
+    */
+   
    public CharMapper(Font fontToUse, int mappingResolution)
    {
       usedFont = fontToUse;
       resolution = mappingResolution;
    }
 
-   public void imgGenerator(char charForProcess)
+   /**Creates a single img file in the tmp directory based on char input
+    *
+    * @param charForProcess input character to generate image of
+    */
+   private void imgGenerator(char charForProcess)
    {
       int charVal = charForProcess - 0;
       File outputFile = new File("./tmp/" + charVal + ".png");
@@ -42,5 +52,23 @@ public class CharMapper {
          // TODO Auto-generated catch block
          e.printStackTrace();
       }
+   }
+
+   /**Generates a full set of ascii images
+    * 
+    */
+   public void makeImgSet()
+   {
+      for (int i = 33; i < 256; i++)
+      {
+         char myChar = (char) i;
+         System.out.println("Char + i: " + myChar + " " + i);
+         imgGenerator(myChar);
+      }
+   }
+
+   public void makeValueMaps()
+   {
+   
    }
 }

@@ -44,9 +44,9 @@ public class ImageReader
     * 
     * TODO: Add try-catch
     */
-   public void makeOutput()
+   public void makeOutput(String filename)
    {
-      outputFile = new File("luminosityValues.txt");
+      outputFile = new File("./tmp/" + filename + ".txt");
    }
 
    public void readImage()
@@ -65,7 +65,18 @@ public class ImageReader
             {
                pixelColor = new Color(inputImage.getRGB(col, row));
                luminosity = ( pixelColor.getRed() + pixelColor.getBlue() + pixelColor.getGreen() ) / 3;
-               myWriter.write(luminosity + " ");
+
+               if(luminosity < 100)
+               {
+                  myWriter.write(luminosity + "  ");
+               }else if(luminosity < 10)
+               {
+                  myWriter.write(luminosity + "  ");
+               }else
+               {
+                  myWriter.write(luminosity + " ");
+               }
+               
             }
             myWriter.write("\n");
          }
