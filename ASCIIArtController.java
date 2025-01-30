@@ -21,16 +21,10 @@ public class ASCIIArtController
       //myReader.makeOutput("catLuminosity");
       myReader.readImage();
 
-      
-
       asciiGenerator myGenerator = new asciiGenerator(myReader.getLumArray(), myMapper);
-      myGenerator.getAsciiArt();//this line is horribly slow
+      myGenerator.getAsciiArt();
       
-      
-      long timerLap1 = System.currentTimeMillis();
-      //System.out.println(myGenerator.getAsciiArtString());
-
-      
+      long timerLap1 = System.currentTimeMillis();      
 
       try {
          BufferedWriter artOut = new BufferedWriter(new FileWriter("output.txt"));

@@ -52,40 +52,21 @@ public class ImageReader
    }
 
    public void readImage()
-   {
-      int luminosity;
-      Color pixelColor;
-      
-
+   {      
       try {
          BufferedImage inputImage = ImageIO.read(inputfile);
-         //FileWriter myWriter = new FileWriter(outputFile);
          outputLum = new int[inputImage.getHeight()][inputImage.getWidth()];
 
          for(int row = 0; row < inputImage.getHeight(); row++)
          {
             for(int col = 0; col < inputImage.getWidth(); col++)
             {
-               pixelColor = new Color(inputImage.getRGB(col, row));
-               luminosity = ( pixelColor.getRed() + pixelColor.getBlue() + pixelColor.getGreen() ) / 3;
+               int pixRGB = inputImage.getRGB(col, row);
+               
+               outputLum[row][col] = (((pixRGB >> 16) & 0xff) + ((pixRGB >> 8) & 0xff) + (pixRGB & 0xff)) / 3;
 
-               outputLum[row][col] = luminosity;
-               /*
-               if(luminosity < 100)
-               {
-                  myWriter.write(luminosity + "  ");
-               }else if(luminosity < 10)
-               {
-                  myWriter.write(luminosity + "  ");
-               }else
-               {
-                  myWriter.write(luminosity + " ");
-               }
-               */
             }
-            //myWriter.write("\n");
          }
-         //myWriter.close();
 
       } catch (IOException e) {
          // TODO Auto-generated catch block
