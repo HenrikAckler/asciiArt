@@ -3,14 +3,14 @@ public class asciiGenerator {
    private int[][] imgLuminosity;
    private char[][] asciiArray;
    private CharMapper asciiMapper;
-   private String output;
+   private StringBuilder output;
 
    public asciiGenerator(int[][] imgLuminosity, CharMapper asciiMapper)
    {
       this.imgLuminosity = imgLuminosity;
       this.asciiMapper = asciiMapper;
       asciiArray = new char[imgLuminosity.length][imgLuminosity[0].length];
-      output = "";
+      output = new StringBuilder();
    }
 
    /**Creates char array of appropriate ascii symbols and returns as 2d array
@@ -24,14 +24,14 @@ public class asciiGenerator {
          for(int col = 0; col < imgLuminosity[row].length; col++)
          {
             asciiArray[row][col] = asciiMapper.getCharForLum(imgLuminosity[row][col]);
-            output += asciiMapper.getCharForLum(imgLuminosity[row][col]);
+            output.append(asciiMapper.getCharForLum(imgLuminosity[row][col]));
 
             if( col % 2 == 0)
             {
-               output += "  ";
+               output.append(" ");
             }
          }
-         output += "\n";
+         output.append("\n");
       }
 
       return asciiArray;
@@ -44,7 +44,7 @@ public class asciiGenerator {
     */
    public String getAsciiArtString()
    {
-      return output;
+      return output.toString();
    }
 
 }

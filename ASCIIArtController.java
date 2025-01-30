@@ -21,11 +21,16 @@ public class ASCIIArtController
       //myReader.makeOutput("catLuminosity");
       myReader.readImage();
 
+      
+
       asciiGenerator myGenerator = new asciiGenerator(myReader.getLumArray(), myMapper);
-      myGenerator.getAsciiArt();
+      myGenerator.getAsciiArt();//this line is horribly slow
+      
+      
+      long timerLap1 = System.currentTimeMillis();
       //System.out.println(myGenerator.getAsciiArtString());
 
-      long timerLap1 = System.currentTimeMillis();
+      
 
       try {
          BufferedWriter artOut = new BufferedWriter(new FileWriter("output.txt"));
@@ -38,7 +43,7 @@ public class ASCIIArtController
 
       long timerFinish = System.currentTimeMillis();
 
-      System.out.println("The program took " + ( (timerLap1 - timerStart) / 1000) + "s to generate the frame.");
-      System.out.println("The program took " + ( (timerFinish - timerStart) / 1000) + "s to generate and export the frame.");
+      System.out.println("The program took " + ( (timerLap1 - timerStart)) + "ms to generate the frame.");
+      System.out.println("The program took " + ( (timerFinish - timerStart)) + "ms to generate and export the frame.");
    }
 }
