@@ -51,26 +51,20 @@ public class ImageReader
       //outputFile = new File("./tmp/" + filename + ".txt");
    }
 
-   public void readImage()
+   public void readImage() throws IOException
    {      
-      try {
-         BufferedImage inputImage = ImageIO.read(inputfile);
-         outputLum = new int[inputImage.getHeight()][inputImage.getWidth()];
+      BufferedImage inputImage = ImageIO.read(inputfile);
+      outputLum = new int[inputImage.getHeight()][inputImage.getWidth()];
 
-         for(int row = 0; row < inputImage.getHeight(); row++)
+      for(int row = 0; row < inputImage.getHeight(); row++)
+      {
+         for(int col = 0; col < inputImage.getWidth(); col++)
          {
-            for(int col = 0; col < inputImage.getWidth(); col++)
-            {
-               int pixRGB = inputImage.getRGB(col, row);
-               
-               outputLum[row][col] = (((pixRGB >> 16) & 0xff) + ((pixRGB >> 8) & 0xff) + (pixRGB & 0xff)) / 3;
+            int pixRGB = inputImage.getRGB(col, row);
+            
+            outputLum[row][col] = (((pixRGB >> 16) & 0xff) + ((pixRGB >> 8) & 0xff) + (pixRGB & 0xff)) / 3;
 
-            }
          }
-
-      } catch (IOException e) {
-         // TODO Auto-generated catch block
-         e.printStackTrace();
       }
    }
 

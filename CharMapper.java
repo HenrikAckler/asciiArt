@@ -79,7 +79,7 @@ public class CharMapper {
     * MUST NOT BE CALLED BEFORE makeImgSet()
     * TODO: implement check for img pregeneration
     */
-   public void makeValueMaps()
+   public void makeValueMaps() throws IOException
    {
       for (int i = 0; i < charLumIndex.length; i++)
       {
