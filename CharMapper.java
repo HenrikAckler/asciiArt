@@ -8,12 +8,11 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 
 /**maps all ascii characters to their valueMap
- * Also creates a string[] array of unused 
- *
+ * 
+ * @author Henrik Ackler
  */
 public class CharMapper {
    private Font usedFont;
-   private int resolution;//TODO see if I can remove this variable
    private int[][] charLumIndex; //row is index, col is luminosity
    private int charMinVal;
    private int charMaxVal;
@@ -21,13 +20,10 @@ public class CharMapper {
    /**Creates CharMapper object with font and resolution input.
     * 
     * @param fontToUse pick a font, 10pt reccomended
-    * @param mappingResolution CURRENTLY UNUSED
     */
-   
-   public CharMapper(Font fontToUse, int mappingResolution)
+   public CharMapper(Font fontToUse)
    {
       usedFont = fontToUse;
-      resolution = mappingResolution;
       charMinVal = 33;
       charMaxVal = 255;
       charLumIndex = new int[charMaxVal-charMinVal][2];
@@ -36,8 +32,9 @@ public class CharMapper {
    /**Creates a single img file in the tmp directory based on char input
     *
     * @param charForProcess input character to generate image of
+    * @throws IOException 
     */
-   private void imgGenerator(char charForProcess)
+   private void imgGenerator(char charForProcess) throws IOException
    {
       int charVal = charForProcess - 0;
       File outputFile = new File("./tmp/" + charVal + ".png");
@@ -52,23 +49,18 @@ public class CharMapper {
       graphicOut.drawString(String.valueOf(charForProcess), 0, myMetrics.getAscent()); 
       graphicOut.dispose();
 
-      try {
-         ImageIO.write(outImg, "png", outputFile);
-      } catch (IOException e) {
-         // TODO Auto-generated catch block
-         e.printStackTrace();
-      }
+      ImageIO.write(outImg, "png", outputFile);
    }
 
    /**Generates a full set of ascii images
+    * @throws IOException 
     * 
     */
-   public void makeImgSet()
+   public void makeImgSet() throws IOException
    {
       for (int i = charMinVal; i <= charMaxVal; i++)
       {
          char myChar = (char) i;
-         //System.out.println("Char + i: " + myChar + " " + i);
          imgGenerator(myChar);
       }
    }
@@ -87,7 +79,6 @@ public class CharMapper {
          tmpReader.readImage();
          charLumIndex[i][0] = i + charMinVal;
          charLumIndex[i][1] = tmpReader.getAvgLum();
-         //System.out.println("Unsorted Val: " + charLumIndex[i][0] + " - " + charLumIndex[i][1]);
       }
 
       //TODO: This stinks. But it works and only runs once. It'll do for now.
@@ -104,7 +95,6 @@ public class CharMapper {
                charLumIndex[i] = tmpArray;
             }
          }
-         //System.out.println("Sorted Val: " + charLumIndex[i][0] + " - " + charLumIndex[i][1]);
       }
    }
 

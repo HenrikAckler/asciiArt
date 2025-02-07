@@ -17,7 +17,7 @@ public class ASCIIArtController {
          System.out.println("\tExample: \t$ java ASCIIArtController 0 cat.png");
       } else {
          try {
-            CharMapper myMapper = new CharMapper(new Font("Arial", Font.PLAIN, 10), 13);
+            CharMapper myMapper = new CharMapper(new Font("Arial", Font.PLAIN, 10));
             if(Integer.parseInt(args[0]) == 1)
             {
                myMapper.makeImgSet();

@@ -8,14 +8,14 @@ import java.nio.file.Path;
 import javax.imageio.ImageIO;
 
 /**Reads an image's pixel data and writes the data to a file in a 2D array
- * //TODO: rework this to use an array instead of string, and strip out file output from default behavior
+ * //TODO: strip out file output from default behavior
  * @author Henrik Ackler
  */
 public class ImageReader
 {
    private String imgFileName;
-   private Path imgFilePath;
-   private File outputFile;
+   //private Path imgFilePath;// TODO: finish removing these
+   //private File outputFile;
    private File inputfile;
    private int[][] outputLum;
    
@@ -26,7 +26,7 @@ public class ImageReader
    public ImageReader(String filename)
    {
       imgFileName = filename;
-      imgFilePath = Path.of(imgFileName);
+      //imgFilePath = Path.of(imgFileName); //TODO: remove this?
       inputfile = new File(imgFileName);
    }
 
@@ -37,7 +37,7 @@ public class ImageReader
    public void filePicker(String filename)
    {
       imgFileName = filename;
-      imgFilePath = Path.of(imgFileName);
+      //imgFilePath = Path.of(imgFileName);// TODO: remove this?
       inputfile = new File(imgFileName);
    }
 
@@ -96,5 +96,4 @@ public class ImageReader
       return sum / count;
    }
    
-
 }
