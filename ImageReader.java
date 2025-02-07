@@ -1,21 +1,15 @@
-import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Path;
 
 import javax.imageio.ImageIO;
 
 /**Reads an image's pixel data and writes the data to a file in a 2D array
- * //TODO: strip out file output from default behavior
  * @author Henrik Ackler
  */
 public class ImageReader
 {
    private String imgFileName;
-   //private Path imgFilePath;// TODO: finish removing these
-   //private File outputFile;
    private File inputfile;
    private int[][] outputLum;
    
@@ -26,7 +20,6 @@ public class ImageReader
    public ImageReader(String filename)
    {
       imgFileName = filename;
-      //imgFilePath = Path.of(imgFileName); //TODO: remove this?
       inputfile = new File(imgFileName);
    }
 
@@ -37,18 +30,7 @@ public class ImageReader
    public void filePicker(String filename)
    {
       imgFileName = filename;
-      //imgFilePath = Path.of(imgFileName);// TODO: remove this?
       inputfile = new File(imgFileName);
-   }
-
-   /**Creates output file
-    * 
-    * TODO: Add try-catch
-    * Deprecating this for now.....TODO: Remove?
-    */
-   public void makeOutput(String filename)
-   {
-      //outputFile = new File("./tmp/" + filename + ".txt");
    }
 
    public void readImage() throws IOException
@@ -62,8 +44,9 @@ public class ImageReader
          {
             int pixRGB = inputImage.getRGB(col, row);
             
+            //bitwise hack to shave operation time off this O(n^2) mess
+            //don't adjust this. It will break.
             outputLum[row][col] = (((pixRGB >> 16) & 0xff) + ((pixRGB >> 8) & 0xff) + (pixRGB & 0xff)) / 3;
-
          }
       }
    }
